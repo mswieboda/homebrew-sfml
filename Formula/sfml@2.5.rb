@@ -46,12 +46,11 @@ class SfmlAT25 < Formula
     # headers that were moved there in https://github.com/SFML/SFML/pull/795
     rm_rf Dir["extlibs/*"] - ["extlibs/headers"]
 
-    args = []
-    args << "-DCMAKE_OSX_ARCHITECTURES=arm64"
-    args << "-DCMAKE_INSTALL_RPATH=#{opt_lib}"
-    args << "-DSFML_MISC_INSTALL_PREFIX=#{share}/SFML"
-    args << "-DSFML_INSTALL_PKGCONFIG_FILES=TRUE"
-    args << "-DSFML_BUILD_DOC=TRUE"
+    args = ["-DCMAKE_INSTALL_RPATH=#{opt_lib}",
+            "-DSFML_MISC_INSTALL_PREFIX=#{share}/SFML",
+            "-DSFML_INSTALL_PKGCONFIG_FILES=TRUE",
+            "-DSFML_BUILD_DOC=TRUE"]
+
     args << "-DSFML_USE_SYSTEM_DEPS=ON" if OS.linux?
 
     system "cmake", "-S", ".", "-B", "build", *std_cmake_args, *args
